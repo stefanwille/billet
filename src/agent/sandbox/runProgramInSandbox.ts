@@ -3,7 +3,7 @@ import {
   SandboxRuntimeConfigSchema,
   type SandboxRuntimeConfig,
 } from "@anthropic-ai/sandbox-runtime";
-import { spawn } from "child_process";
+import { type ChildProcess, spawn } from "child_process";
 
 export type Program = () => Promise<void>;
 
@@ -30,14 +30,45 @@ async function relaunchProgramInSandbox(cwd?: string) {
   }
 
   await SandboxManager.initialize(config);
-  const cmd = await SandboxManager.wrapWithSandbox(
-    `SRT_SANDBOXED=1 ${process.execPath} ${process.argv.slice(1).join(" ")}`,
-  );
-  spawn(cmd, { shell: true, stdio: "inherit" });
+  const cmd = await SandboxManager.wrapWithSandbox(createRelaunchCommand());
+  const child = spawn(cmd, { shell: true, stdio: "inherit" });
+  const { code, signal } = await waitForChild(child);
+
+  SandboxManager.cleanupAfterCommand();
+
+  if (signal) {
+    process.kill(process.pid, signal);
+    return;
+  }
+  process.exit(code ?? 1);
 }
 
 async function loadSandboxRuntimeConfig(): Promise<SandboxRuntimeConfig> {
   const POLICY_FILE = new URL("sandbox-settings.json", import.meta.url);
   const SANDBOX_POLICY = await Bun.file(POLICY_FILE).json();
   return SandboxRuntimeConfigSchema.parse(SANDBOX_POLICY);
+}
+
+function createRelaunchCommand(): string {
+  return ["env", "SRT_SANDBOXED=1", process.execPath, ...process.argv.slice(1)]
+    .map(shellQuote)
+    .join(" ");
+}
+
+function shellQuote(value: string): string {
+  if (value === "") {
+    return "''";
+  }
+  return `'${value.replaceAll("'", "'\\''")}'`;
+}
+
+function waitForChild(
+  child: ChildProcess,
+): Promise<{ code: number | null; signal: NodeJS.Signals | null }> {
+  return new Promise((resolve, reject) => {
+    child.once("error", reject);
+    child.once("exit", (code, signal) => {
+      resolve({ code, signal });
+    });
+  });
 }
