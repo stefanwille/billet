@@ -3,6 +3,7 @@
   - evalite to get started
 - Protect against prompt injection
 - streaming
+- caching
 - Self improvement loop: Let the coding agent improve itself by running a ralph loop
 - guardrails
 - Context window decisions - means managing what's in your messages array as the conversation grows. The problem: every API call sends the entire conversation history. With an agentic coding tool, this blows up fast because tool results (file contents, bash output) are often huge.
