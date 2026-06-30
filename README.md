@@ -1,8 +1,8 @@
-# Hone
+# Billet
 
 A terminal-based AI coding agent built from raw [Anthropic SDK](https://docs.anthropic.com/en/docs/) primitives, [Bun](https://bun.sh), and TypeScript. No frameworks, no abstractions — just the agentic loop, tool use, and LLM API mechanics, built directly on the raw SDK.
 
-Hone runs an interactive REPL where you chat with Claude, and the model can execute bash commands and edit files on your machine through tool use — all inside a sandboxed environment.
+Billet runs an interactive REPL where you chat with Claude, and the model can execute bash commands and edit files on your machine through tool use — all inside a sandboxed environment.
 
 ## What It Does
 
@@ -55,8 +55,8 @@ The agent follows a classic **agentic loop**:
 
 ```bash
 # Clone the repo
-git clone https://github.com/stefanwille/hone.git
-cd hone
+git clone https://github.com/stefanwille/billet.git
+cd billet
 
 # Install dependencies
 bun install

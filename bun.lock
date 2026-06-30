@@ -3,7 +3,7 @@
   "configVersion": 1,
   "workspaces": {
     "": {
-      "name": "agentic-loop",
+      "name": "billet",
       "dependencies": {
         "@anthropic-ai/sandbox-runtime": "^0.0.42",
         "@anthropic-ai/sdk": "^0.78.0",

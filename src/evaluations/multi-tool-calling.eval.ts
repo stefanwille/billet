@@ -18,7 +18,7 @@ evalite("Multi tool calling", {
     },
   ],
   task: async (input) => {
-    tempDir = mkdtempSync(join(tmpdir(), "ai-coding-agent-eval"));
+    tempDir = mkdtempSync(join(tmpdir(), "billet-eval"));
     const filename = join(tempDir, "multi-tool-calling.txt");
     writeFileSync(filename, "smart agent");
     await runAgent({ prompt: input.prompt, cwd: tempDir });

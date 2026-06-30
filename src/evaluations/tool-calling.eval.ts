@@ -18,7 +18,7 @@ evalite("Tool calling", {
     },
   ],
   task: async (input) => {
-    tempDir = await mkdtemp(join(tmpdir(), "ai-coding-agent-eval"));
+    tempDir = await mkdtemp(join(tmpdir(), "billet-eval"));
     await runAgent({ prompt: input.prompt, cwd: tempDir });
     return await readFile(join(tempDir, "hello.txt"), { encoding: "utf-8" });
   },

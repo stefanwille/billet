@@ -33,7 +33,7 @@ evalite("Code understanding", {
     },
   ],
   task: async (input) => {
-    tempDir = mkdtempSync(join(tmpdir(), "ai-coding-agent-eval"));
+    tempDir = mkdtempSync(join(tmpdir(), "billet-eval"));
     const filename = join(tempDir, "code-understanding.ts");
     writeFileSync(filename, FIBONACCI_FUNCTION);
     await runAgent({ prompt: input.prompt, cwd: tempDir });
