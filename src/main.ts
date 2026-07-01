@@ -70,7 +70,23 @@ async function sandboxedMain(cliOptions: CliOptions) {
   }
 }
 
+function checkAnthropicApiKey() {
+  if (!Bun.env.ANTHROPIC_API_KEY) {
+    console.log(
+      "ANTHROPIC_API_KEY is not set. Please copy .env.local.example to .env.local and add your API key there.",
+    );
+    process.exit(1);
+  }
+  if (!Bun.env.ANTHROPIC_API_KEY?.startsWith("sk-")) {
+    console.log(
+      "ANTHROPIC_API_KEY is not a valid API key.",
+    );
+    process.exit(1);
+  }
+}
+
 async function main() {
+  checkAnthropicApiKey();
   const cliOptions = getCliOptions();
   const program = async () => {
     await sandboxedMain(cliOptions);
