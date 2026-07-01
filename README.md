@@ -4,6 +4,22 @@ A terminal-based AI coding agent built from raw [Anthropic SDK](https://docs.ant
 
 Billet runs an interactive REPL where you chat with Claude, and the model can run bash commands and view/edit files on your machine through tool use — all inside a sandboxed environment.
 
+## Quick Start
+
+```bash
+git clone https://github.com/stefanwille/billet.git
+cd billet
+bun install
+cp .env.local.example .env.local
+bun start
+```
+
+Billet needs an Anthropic API key. Grab one at [console.anthropic.com](https://console.anthropic.com/) and paste it into `.env.local`.
+
+## Why I built it
+
+I begin building Billet by experimenting with an agentic loop. Then I remembered Boris Cherny's story about discovering the Claude model's inherent ability to code, and I wanted to see if I could reproduce the same thing in a basic setting, just providing a bash tool  — and it worked. By writing the machinery myself instead of wiring up a framework, I had a great learning experience. The agentic loop, tool dispatch, the bash and text-editor tools are all hand-built on the raw Anthropic SDK. Building from primitives is the fastest way I know to see where the real engineering in an agent lives: context management, tool-result handling, and the control flow around the model.
+
 ## What It Does
 
 ```
@@ -55,23 +71,6 @@ The agent follows a classic **agentic loop**:
 - [Bun](https://bun.sh) (v1.0+)
 - An [Anthropic API key](https://console.anthropic.com/)
 
-### Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/stefanwille/billet.git
-cd billet
-
-# Install dependencies
-bun install
-
-# Add your API key
-echo 'ANTHROPIC_API_KEY=sk-ant-...' > .env.local
-
-# Run the agent
-bun start
-```
-
 Bun automatically loads `.env.local`, so your API key is picked up without any extra config.
 
 ### Pipe Mode
@@ -110,7 +109,7 @@ bun start --cwd ../other-repo # run the agent against a different working direct
 
 **Plan Mode** (`available-tools/exit-plan-mode.ts`) — an `exit_plan_mode` tool lets Claude switch the session back to agent mode once the user approves a plan. Toggled manually in the REPL via `/plan` and `/agent`.
 
-**Markdown Renderer** (`src/agent/markdown-renderer/render-markdown.ts`) — a from-scratch,  terminal Markdown renderer. Converts headings, code fences, tables, blockquotes, lists, inline formatting, and links into styled ANSI output.
+**Markdown Renderer** (`src/agent/markdown-renderer/render-markdown.ts`) — a custom terminal Markdown renderer (no markdown library). Converts headings, code fences, tables, blockquotes, lists, inline formatting, and links into styled ANSI output.
 
 **Sandbox** (`src/agent/sandbox/runProgramInSandbox.ts`) — wraps the agent process in an `@anthropic-ai/sandbox-runtime` sandbox. On first launch (no `SRT_SANDBOXED` env var), it loads `sandbox-settings.json`, initializes the sandbox policy, and re-spawns itself inside the sandbox. Policy controls filesystem read/write access and allowed network domains.
 
