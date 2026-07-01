@@ -141,3 +141,13 @@ bun run verify         # Run format, lint, typecheck, and test in sequence
 | Formatter      | [oxfmt](https://oxc.rs)                            |
 | Linter         | [oxlint](https://oxc.rs)                           |
 | Test Runner    | `bun:test`                                         |
+
+
+## A Little Story
+
+When I showed Billet to my girlfriend, she asked it to program a more human friendly UI for itself. Billet went ahead and built a better TUI.
+
+<p align="center">
+  <img src="demo/billet-with-self-designed-tui.png" alt="Billet redesigned its own TUI" width="800">
+</p>
+
