@@ -5,7 +5,7 @@ A terminal-based AI coding agent built from raw [Anthropic SDK](https://docs.ant
 Billet runs an interactive REPL where you chat with Claude, and the model can run bash commands and view/edit files on your machine through tool use — all inside a sandboxed environment.
 
 <p align="center">
-  <img src="demo/billet-demo.gif" alt="Billet — terminal AI coding agent demo" width="800">
+  <img src="demo/billet-demo.gif" alt="Billet — terminal AI coding agent demo" width="1024">
 </p>
 
 ## Quick Start
@@ -148,7 +148,7 @@ bun run verify         # Run format, lint, typecheck, and test in sequence
 When I showed Billet to my girlfriend, she asked it to program a more human-friendly UI for itself. Billet went ahead and built a better TUI.
 
 <p align="center">
-  <img src="demo/billet-with-self-designed-tui.png" alt="Billet redesigned its own TUI" width="800">
+  <img src="demo/billet-with-self-designed-tui.png" alt="Billet redesigned its own TUI" width="1024">
 </p>
 
 In case you are curious, the code for Billet's designed TUI is in this [commit](https://github.com/stefanwille/billet/commit/9d2fa29).
