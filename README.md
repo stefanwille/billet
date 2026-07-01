@@ -151,3 +151,6 @@ When I showed Billet to my girlfriend, she asked it to program a more human-frie
   <img src="demo/billet-with-self-designed-tui.png" alt="Billet redesigned its own TUI" width="800">
 </p>
 
+In case you are curious, the code for Billet's designed TUI is in this [commit](https://github.com/stefanwille/billet/commit/9d2fa29).
+
+
