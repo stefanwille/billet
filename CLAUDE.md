@@ -1,8 +1,6 @@
 # CLAUDE.md
 
-## Project
-
-Interactive AI coding agent built on the Anthropic Claude API. REPL loop: user input → Claude API → tool execution → render response → repeat. Also supports piped input: `echo "what is 1+2" | bun start`.
+Read @README.md
 
 ## Validation Commands
 
