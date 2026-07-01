@@ -4,6 +4,10 @@ A terminal-based AI coding agent built from raw [Anthropic SDK](https://docs.ant
 
 Billet runs an interactive REPL where you chat with Claude, and the model can run bash commands and view/edit files on your machine through tool use — all inside a sandboxed environment.
 
+<p align="center">
+  <img src="demo/billet-demo.gif" alt="Billet — terminal AI coding agent demo" width="800">
+</p>
+
 ## Quick Start
 
 ```bash
