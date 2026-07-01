@@ -1,9 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { type AgentSession } from "./agent-session";
-import {
-  renderMarkdown,
-  renderToolFrame,
-} from "./markdown-renderer/render-markdown";
+import { renderMarkdown } from "./markdown-renderer/render-markdown";
+import { renderToolFrame } from "./tool-frame-renderer/render-tool-frame";
 import { loadSystemPrompt } from "./system-prompt/system-prompt";
 import { type ToolResult } from "./tools/tool";
 

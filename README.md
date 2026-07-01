@@ -33,7 +33,7 @@ I began building Billet by experimenting with an agentic loop. Then I remembered
 │ -rw-r--r--   1 user  staff   847 Mar 10 09:00 package.json
 │ drwxr-xr-x   5 user  staff   160 Mar 10 09:00 src
 │ ...
-└──────────────────────────────────────────────┘
+└─────────────────────────────────────────────┘
 
 Here are the files in the current directory: ...
 ```

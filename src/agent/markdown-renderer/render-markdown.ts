@@ -1,14 +1,16 @@
-const RESET = "\x1b[0m";
-const BOLD = "\x1b[1m";
-const DIM = "\x1b[2m";
-const ITALIC = "\x1b[3m";
-const UNDERLINE = "\x1b[4m";
-const STRIKETHROUGH = "\x1b[9m";
-const CYAN = "\x1b[36m";
-const GREEN = "\x1b[32m";
-const YELLOW = "\x1b[33m";
-const MAGENTA = "\x1b[35m";
-const GRAY = "\x1b[90m";
+import {
+  RESET,
+  BOLD,
+  DIM,
+  ITALIC,
+  UNDERLINE,
+  STRIKETHROUGH,
+  CYAN,
+  GREEN,
+  YELLOW,
+  MAGENTA,
+  GRAY,
+} from "../ansi-colors";
 
 export function formatInline(text: string): string {
   // 1. Inline code — protect contents from further formatting
@@ -120,55 +122,6 @@ function nestDepth(indent: string): number {
 }
 
 const bulletMarkers = ["•", "◦", "▪"];
-
-export function renderToolFrame(
-  name: string,
-  input: unknown,
-  result: string,
-): string {
-  const width = 50;
-  const output: string[] = [];
-
-  // Top border with tool name
-  const topLabel = ` ${name} `;
-  const topPad = Math.max(0, width - 2 - topLabel.length);
-  output.push(DIM + "┌─" + topLabel + "─".repeat(topPad) + "┐" + RESET);
-
-  // Input lines
-  const inputStr =
-    typeof input === "string" ? input : JSON.stringify(input, null, 2);
-  for (const line of inputStr.split("\n")) {
-    output.push(DIM + "│ " + RESET + YELLOW + line + RESET);
-  }
-
-  // Separator with "result" label
-  const midLabel = " result ";
-  const midPad = Math.max(0, width - 2 - midLabel.length);
-  output.push(DIM + "├─" + midLabel + "─".repeat(midPad) + "┤" + RESET);
-
-  // Result lines (truncate if too long)
-  const resultLines = result.split("\n");
-  const maxLines = 20;
-  const truncated = resultLines.length > maxLines;
-  const displayLines = truncated ? resultLines.slice(0, maxLines) : resultLines;
-  for (const line of displayLines) {
-    output.push(DIM + "│ " + RESET + line);
-  }
-  if (truncated) {
-    output.push(
-      DIM +
-        "│ " +
-        RESET +
-        GRAY +
-        `... (${resultLines.length - maxLines} more lines)` +
-        RESET,
-    );
-  }
-
-  // Bottom border
-  output.push(DIM + "└" + "─".repeat(width) + "┘" + RESET);
-  return output.join("\n");
-}
 
 export function renderMarkdown(markdown: string): string {
   const lines = markdown.split("\n");
