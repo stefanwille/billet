@@ -13,7 +13,8 @@
     "typecheck": "tsc --noEmit",
     "verify": "bun format && bun lint && bun typecheck && bun test",
     "eval": "node --env-file=.env.local node_modules/.bin/evalite run",
-    "eval:ui": "node --env-file=.env.local node_modules/.bin/evalite serve"
+    "eval:ui": "node --env-file=.env.local node_modules/.bin/evalite serve",
+    "demo": "rm -rf /tmp/billet-demo && mkdir -p /tmp/billet-demo && vhs demo/billet.tape"
   },
   "devDependencies": {
     "@types/bun": "^1.3.14",
