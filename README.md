@@ -18,7 +18,7 @@ Billet needs an Anthropic API key. Grab one at [console.anthropic.com](https://c
 
 ## Why I built it
 
-I begin building Billet by experimenting with an agentic loop. Then I remembered Boris Cherny's story about discovering the Claude model's inherent ability to code, and I wanted to see if I could reproduce the same thing in a basic setting, just providing a bash tool  — and it worked. By writing the machinery myself instead of wiring up a framework, I had a great learning experience. The agentic loop, tool dispatch, the bash and text-editor tools are all hand-built on the raw Anthropic SDK. Building from primitives is the fastest way I know to see where the real engineering in an agent lives: context management, tool-result handling, and the control flow around the model.
+I began building Billet by experimenting with an agentic loop. Then I remembered Boris Cherny's story about discovering the Claude model's inherent ability to code, and I wanted to see if I could reproduce the same thing in a basic setting, just providing a bash tool — and it worked. By writing the machinery myself instead of wiring up a framework, I had a great learning experience. The agentic loop, tool dispatch, the bash and text-editor tools are all hand-built on the raw Anthropic SDK. Building from primitives is the fastest way I know to see where the real engineering in an agent lives: context management, tool-result handling, and the control flow around the model.
 
 ## What It Does
 
