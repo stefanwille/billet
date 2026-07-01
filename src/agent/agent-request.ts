@@ -1,7 +1,7 @@
 import Anthropic from "@anthropic-ai/sdk";
 import { type AgentSession } from "./agent-session";
 import { renderMarkdown } from "./markdown-renderer/render-markdown";
-import { renderToolFrame } from "./tool-frame-renderer/render-tool-frame";
+import { renderToolFrame, renderError, renderWarning } from "./ui";
 import { loadSystemPrompt } from "./system-prompt/system-prompt";
 import { type ToolResult } from "./tools/tool";
 
@@ -31,9 +31,7 @@ async function executeToolUse(
 
   const resultStr =
     typeof result === "string" ? result : JSON.stringify(result, null, 2);
-  console.log(
-    renderToolFrame(`Tool: ${toolUse.name}`, toolUse.input, resultStr),
-  );
+  console.log(renderToolFrame(toolUse.name, toolUse.input, resultStr));
 
   return {
     type: "tool_result",
@@ -69,11 +67,11 @@ export async function agentRequest(input: string, session: AgentSession) {
         });
       } catch (err) {
         if (err instanceof Anthropic.RateLimitError) {
-          console.error("Rate limited, try again in a moment");
+          console.error(renderError("Rate limited — try again in a moment."));
         } else if (err instanceof Anthropic.APIConnectionError) {
-          console.error("Connection failed, check your network");
+          console.error(renderError("Connection failed — check your network."));
         } else {
-          console.error(`API error: ${(err as Error).message}`);
+          console.error(renderError(`API error: ${(err as Error).message}`));
         }
         return;
       }
@@ -92,11 +90,11 @@ export async function agentRequest(input: string, session: AgentSession) {
           return;
         case "max_tokens":
           console.log(
-            "We exceeded the requested max_tokens or the model's maximum, stopping conversation",
+            renderWarning("Token limit reached — conversation stopped."),
           );
           return;
         case "stop_sequence":
-          console.log("Stop sequence reached, stopping conversation");
+          console.log(renderWarning("Stop sequence reached."));
           return;
         case "tool_use": {
           const toolResults: Anthropic.Messages.ToolResultBlockParam[] = [];
@@ -111,15 +109,15 @@ export async function agentRequest(input: string, session: AgentSession) {
         }
         case "pause_turn":
           // We paused a long-running turn. You may provide the response back as-is in a subsequent request to let the model continue.
-          console.log("Paused turn");
+          console.log(renderWarning("Turn paused."));
           break;
         case "refusal":
           // When streaming classifiers intervene to handle potential policy violations
-          console.log("Refusal, stopping conversation");
+          console.log(renderWarning("Request refused."));
           return;
         default:
           console.log(
-            `Unknown stop reason ${response.stop_reason}, stopping conversation`,
+            renderWarning(`Unknown stop reason: ${response.stop_reason}`),
           );
           return;
       }
@@ -127,7 +125,7 @@ export async function agentRequest(input: string, session: AgentSession) {
 
     if (turns >= session.maxTurns) {
       console.log(
-        `Reached maximum number of turns (${session.maxTurns}), stopping.`,
+        renderWarning(`Reached maximum turns (${session.maxTurns}).`),
       );
     }
   } finally {
@@ -142,7 +140,7 @@ export async function agentRequest(input: string, session: AgentSession) {
     }
     if (agentRequestTokens > session.maxTokens * 0.8) {
       console.log(
-        "Warning: Output tokens in agent request was greater than 80% of the max tokens",
+        renderWarning("Output tokens exceeded 80% of the limit this turn."),
       );
     }
   }

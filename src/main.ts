@@ -8,41 +8,42 @@ import {
 } from "./agent/readline/readline-history";
 import { runInSandbox } from "./agent/sandbox/runProgramInSandbox";
 import { getCliOptions, type CliOptions } from "./cli-options";
+import {
+  renderWelcome,
+  promptString,
+  renderModeChange,
+  renderHelp,
+} from "./agent/ui";
 
 async function repl(model: string | undefined): Promise<void> {
   const history = await loadReadlineHistory();
   const readlineSession = createReadlineSession(history);
   const agentSession = await createAgentSession({ model });
-  console.log("/help for available commands.\n");
+  console.log(renderWelcome(agentSession.model));
 
   for (;;) {
-    const prompt = agentSession.mode === "plan" ? "plan> " : "> ";
+    const prompt = promptString(agentSession.mode);
     let input = await readlineSession.promptUser(prompt);
     if (input === null) {
       break;
     }
     input = input.trim();
-    if (input === "exit" || input === "quit") {
+    if (input === "exit" || input === "quit" || input === "/exit") {
       break;
     }
     if (!input) continue;
     if (input === "/help") {
-      console.log("Available commands:");
-      console.log(
-        "/plan - Plan mode. Agent will only read and plan, not edit.",
-      );
-      console.log("/agent - Agent mode. Agent can read, write, and execute.");
-      console.log("/exit - Exit the coding agent.");
+      console.log(renderHelp());
       continue;
     }
     if (input === "/plan") {
       agentSession.mode = "plan";
-      console.log("Plan mode. Agent will only read and plan, not edit.");
+      console.log(renderModeChange("plan"));
       continue;
     }
     if (input === "/agent") {
       agentSession.mode = "agent";
-      console.log("Agent mode. Agent can read, write, and execute.");
+      console.log(renderModeChange("agent"));
       continue;
     }
     await saveReadlineHistory(readlineSession.getHistory());
@@ -78,9 +79,7 @@ function checkAnthropicApiKey() {
     process.exit(1);
   }
   if (!Bun.env.ANTHROPIC_API_KEY?.startsWith("sk-")) {
-    console.log(
-      "ANTHROPIC_API_KEY is not a valid API key.",
-    );
+    console.log("ANTHROPIC_API_KEY is not a valid API key.");
     process.exit(1);
   }
 }
