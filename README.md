@@ -41,7 +41,7 @@ The agent follows a classic **agentic loop**:
 - **Terminal Markdown rendering** — headings, code blocks, tables, lists, bold/italic, links, all with ANSI colors
 - **Bordered tool frames** — tool inputs and outputs are displayed in visual boxes
 - **System prompt from CLAUDE.md** — automatically loads `~/.claude/CLAUDE.md` and `./CLAUDE.md`
-- **Instant CLAUDE.md reloading** - changes to CLAUDE.md immediately affect the next turn
+- **Instant CLAUDE.md reloading** — changes to CLAUDE.md immediately affect the next turn
 - **Pipe mode** — use non-interactively: `echo "what is 1+2" | bun start`
 - **Model selection** — pick a model with `--model`/`-m` (`haiku`, `sonnet`, or `opus`)
 - **Configurable working directory** — run against another project with `--cwd`
@@ -94,7 +94,7 @@ bun start --cwd ../other-repo # run the agent against a different working direct
 - `/plan` — switch to plan mode; Claude can only read and plan, not make changes
 - `/agent` — switch back to agent mode; Claude can read, write, and execute
 - `/help` — list available commands
-- `exit` / `quit` — exit the REPL
+- `/exit` (or `exit` / `quit`) — exit the REPL
 
 ## How It Works
 
