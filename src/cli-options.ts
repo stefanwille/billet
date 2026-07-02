@@ -8,7 +8,7 @@ type ModelAlias = "haiku" | "sonnet" | "opus";
 const MODEL_MAP: Record<ModelAlias, Anthropic.Messages.Model> = {
   haiku: "claude-haiku-4-5",
   sonnet: "claude-sonnet-5",
-  opus: "claude-opus-4-6",
+  opus: "claude-opus-4-8",
 };
 
 
