@@ -33,7 +33,6 @@ Review Feedback:
   context. This means paused turns are silently dropped.
 
   Minor Items
-  - get_location is hardcoded (get-location.ts:10) — always returns "Berlin, Germany". Fine as a placeholder, but could confuse users.
 
   - No view_range bounds checking (\_view.ts:51-54) — negative or out-of-range values are silently handled by Array.slice but could return unexpected results.
   - renderToolFrame width is fixed at 50 (render-markdown.ts:129) — input/result lines overflow the box visually.

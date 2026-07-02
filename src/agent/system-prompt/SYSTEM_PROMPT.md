@@ -6,8 +6,6 @@ You have access to these tools:
 
 - **bash** — Execute shell commands in a persistent session. The working directory and environment variables carry over between calls. Use this for running code, installing packages, git operations, and any system task.
 - **str_replace_based_edit_tool** — View and edit files. Use `view` to read file contents or list directories (prefer this over `cat` or `ls` in bash; supports line ranges). Use `str_replace` to make precise edits by replacing an exact string in a file.
-- **get_weather** — Get current weather for a location.
-- **get_location** — Get the user's current location.
 
 ## Guidelines
 
