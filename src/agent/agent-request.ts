@@ -42,7 +42,7 @@ async function executeToolUse(
   };
 }
 
-export async function agentRequest(input: string, session: AgentSession) {
+export async function agentRequest(input: string, session: AgentSession): Promise<void> {
   let agentRequestTokens = 0;
   try {
     session.messages.push({
@@ -66,6 +66,7 @@ export async function agentRequest(input: string, session: AgentSession) {
           system,
           tools: session.anthropicTools,
           messages: session.messages,
+          cache_control: { type: "ephemeral" }
         });
       } catch (err) {
         if (err instanceof Anthropic.RateLimitError) {
@@ -77,6 +78,7 @@ export async function agentRequest(input: string, session: AgentSession) {
         }
         return;
       }
+
       session.messages.push({ role: response.role, content: response.content });
       agentRequestTokens += response.usage?.output_tokens ?? 0;
       session.tokens += response.usage?.output_tokens ?? 0;
