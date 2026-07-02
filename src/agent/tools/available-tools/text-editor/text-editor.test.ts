@@ -138,6 +138,15 @@ describe("textEditor - view", () => {
     });
     expect(result).toBe(`Error: File ${path} does not exist`);
   });
+
+  it("returns error for a binary file", async () => {
+    await Bun.write(TMP_FILE, "\x00\x01\x02\x03\x04\x05\x06\x07\x08\x09\x0a\x0b\x0c\x0d\x0e\x0f");
+    const result = await textEditor.run({
+      command: "view",
+      path: TMP_FILE,
+    });
+    expect(result).toBe(`Error: File has binary content`);
+  });
 });
 
 describe("textEditor - str_replace", () => {

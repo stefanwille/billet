@@ -85,8 +85,16 @@ function formatWithLineNumbers(lines: string[], initLine: number): string {
     .join("\n");
 }
 
+function isBinary(bytes: Uint8Array): boolean {
+  return bytes.includes(0);
+}
+
 async function viewFile(input: ViewInput): Promise<string> {
-  const raw = await Bun.file(input.path).text();
+  const bytes = await Bun.file(input.path).bytes();
+  if (isBinary(bytes)) {
+    return "Error: File has binary content";
+  }
+  const raw = new TextDecoder().decode(bytes);
   const lines = raw.split("\n");
 
   let formatted: string;
