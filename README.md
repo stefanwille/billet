@@ -146,12 +146,10 @@ bun run verify         # Run format, lint, typecheck, and test in sequence
 
 ## A Little Story
 
-When I showed Billet to my girlfriend, she asked it to program a more human-friendly UI for itself. Billet went ahead and built a better TUI.
+When I showed Billet to my girlfriend, she asked it to program a more human-friendly UI for itself. From that one prompt, Billet modified its own source code and built a better TUI.
 
 <p align="center">
   <img src="demo/billet-with-self-designed-tui.png" alt="Billet redesigned its own TUI" width="1024">
 </p>
 
-In case you are curious, the code for Billet's designed TUI is in this [commit](https://github.com/stefanwille/billet/commit/9d2fa29).
-
-
+In case you are curious, the code for Billet's self-designed TUI is in this [commit](https://github.com/stefanwille/billet/commit/9d2fa29).
