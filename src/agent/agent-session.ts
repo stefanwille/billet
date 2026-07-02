@@ -29,7 +29,7 @@ export type AgentSession = {
   tokens: number;
 };
 
-const DEFAULT_MODEL = "claude-sonnet-4-6";
+const DEFAULT_MODEL = "claude-sonnet-5";
 
 export async function createAgentSession(options?: {
   model?: string;

@@ -137,7 +137,7 @@ bun run verify         # Run format, lint, typecheck, and test in sequence
 | Runtime        | [Bun](https://bun.sh)                              |
 | Language       | TypeScript                                         |
 | LLM API        | [Anthropic Claude API](https://docs.anthropic.com) |
-| Default Model  | `claude-sonnet-4-6`                                |
+| Default Model  | `claude-sonnet-5`                                |
 | Schema Library | [arktype](https://arktype.io)                      |
 | Formatter      | [oxfmt](https://oxc.rs)                            |
 | Linter         | [oxlint](https://oxc.rs)                           |
