@@ -3,10 +3,15 @@ import { BashSession } from "./tools/available-tools/bash/bash-session";
 import { convertTools, createTools } from "./tools/tool-list";
 import type { Tool } from "./tools/tool";
 
+export const DEFAULT_MODEL: Anthropic.Messages.Model = "claude-sonnet-5";
+const DEFAULT_MAX_TURNS = 100;
+const DEFAULT_MAX_TOKENS = 8192;
+
 /**
  * Agent session models the session the user has with the agent.
  */
 export type Mode = "agent" | "plan";
+
 
 export type AgentSession = {
   anthropicAPI: Anthropic;
@@ -29,7 +34,6 @@ export type AgentSession = {
   tokens: number;
 };
 
-const DEFAULT_MODEL = "claude-sonnet-5";
 
 export async function createAgentSession(options?: {
   model?: string;
@@ -38,8 +42,8 @@ export async function createAgentSession(options?: {
 }): Promise<AgentSession> {
   const {
     model = DEFAULT_MODEL,
-    maxTokens = 8192,
-    maxTurns = 20,
+    maxTokens = DEFAULT_MAX_TOKENS,
+    maxTurns = DEFAULT_MAX_TURNS,
   } = options ?? {};
   const anthropicAPI = new Anthropic();
   const session: AgentSession = {

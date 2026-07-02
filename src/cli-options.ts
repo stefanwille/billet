@@ -1,6 +1,7 @@
 import type Anthropic from "@anthropic-ai/sdk";
 import { resolve } from "node:path";
 import { parseArgs } from "node:util";
+import { DEFAULT_MODEL } from "./agent/agent-session";
 
 type ModelAlias = "haiku" | "sonnet" | "opus";
 
@@ -10,7 +11,6 @@ const MODEL_MAP: Record<ModelAlias, Anthropic.Messages.Model> = {
   opus: "claude-opus-4-6",
 };
 
-const DEFAULT_MODEL: Anthropic.Messages.Model = MODEL_MAP.sonnet;
 
 export interface CliOptions {
   model?: Anthropic.Messages.Model;
