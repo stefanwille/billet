@@ -15,6 +15,7 @@ git clone https://github.com/stefanwille/billet.git
 cd billet
 bun install
 cp .env.local.example .env.local
+[Add an Anthropic API key to .env.local]
 bun start
 ```
 
